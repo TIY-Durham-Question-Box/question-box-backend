@@ -5,16 +5,16 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @answer = Answer.new(answer_params)
-    @answer.question_id = params[:answer][:question_id]
-    @answer.save
+    answer = Answer.new(answer_params)
+    answer.question_id = params[:question_id]
+    answer.save
     render :show, status: :created
   end
 
   private
 
   def answer_params
-   params.require(:answer).permit(:body)
+   params.require(:answer).permit(:body, :question_id)
   end
 
 
