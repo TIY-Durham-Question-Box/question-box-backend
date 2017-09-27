@@ -19,7 +19,7 @@ class AnswersController < ApplicationController
     answer = Answer.new(answer_params)
     answer.question_id = params[:question_id]
     answer.save
-    render :show, status: :created
+    render json: { message: "created" }, status: :created
   end
 
   private
