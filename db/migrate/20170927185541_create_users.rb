@@ -1,8 +1,6 @@
 class CreateUsers < ActiveRecord::Migration[5.1]
   def change
-    create_table :users do |t|
+    add_column :users, :timestamps, :datetime
 
-      t.timestamps
-    end
   end
 end
