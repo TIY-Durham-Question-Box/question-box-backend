@@ -27,6 +27,13 @@ before_action :authenticate, except: [:index, :show]
     end
   end
 
+  def destroy
+    @answer = Answer.find(params[:id])
+    
+    @answer.destroy
+    render json: {deleted: true}
+  end
+
   private
 
   def answer_params
