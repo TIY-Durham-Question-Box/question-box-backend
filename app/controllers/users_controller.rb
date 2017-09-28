@@ -4,9 +4,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.save
+    # byebug
+    # @user.save
     if @user.save
-      render status: :created
+      render json: { message: "created" }, status: :created
     else
       render json: {
         errors: @user.errors
