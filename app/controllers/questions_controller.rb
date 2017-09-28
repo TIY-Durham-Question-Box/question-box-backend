@@ -10,8 +10,22 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.create(question_params)
-    render :show, status: :created
+    @question = Question.new(question_params)
+    @question.user = current_user
+    # byebug
+    # @user.save
+    if @question.save
+      render json: { message: "created" }, status: :created
+    else
+      render json: {
+        errors: @question.errors
+      }, status: :bad_request
+    end
+
+
+    # @question = Question.create(question_params)
+    # render json: { message: "created" }, status: :created
+    # render :show, status: :created
   end
 
   private

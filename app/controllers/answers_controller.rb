@@ -18,6 +18,7 @@ before_action :authenticate, except: [:index, :show]
     # if @answer.save ...
     puts answer_params
     answer = Answer.new(answer_params)
+    answer.user = current_user
     answer.question_id = params[:question_id]
     if answer.save
       render json: {answer: answer}, status: :created
