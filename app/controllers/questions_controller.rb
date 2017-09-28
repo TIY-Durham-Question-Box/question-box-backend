@@ -21,11 +21,15 @@ class QuestionsController < ApplicationController
         errors: @question.errors
       }, status: :bad_request
     end
-
-
     # @question = Question.create(question_params)
     # render json: { message: "created" }, status: :created
     # render :show, status: :created
+  end
+
+  def destroy
+    @question = Question.find(params[:id])
+    @question.destroy
+    render json: {deleted: true}
   end
 
   private
