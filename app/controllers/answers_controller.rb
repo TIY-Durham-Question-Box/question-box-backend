@@ -16,10 +16,14 @@ before_action :authenticate, except: [:index, :show]
     # @answer = @question.answers.build(answer_params)
     # @answer.user = current_user
     # if @answer.save ...
+    puts answer_params
     answer = Answer.new(answer_params)
     answer.question_id = params[:question_id]
-    answer.save
-    render json: { message: "created" }, status: :created
+    if answer.save
+      render json: {answer: answer}, status: :created
+    else
+      render json: { errors: answer.errors }
+    end
   end
 
   private
