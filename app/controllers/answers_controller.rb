@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-
+before_action :authenticate, except: [:index, :show]
 
   def index
     # question_answers GET    /questions/:question_id/answers(.:format)     answers#index
