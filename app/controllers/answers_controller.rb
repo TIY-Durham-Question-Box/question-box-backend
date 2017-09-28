@@ -27,9 +27,20 @@ before_action :authenticate, except: [:index, :show]
     end
   end
 
+  def update
+    answer = Answer.find(params[:id])
+    # answer.best = params[:best]
+
+    if answer.update(best: params[:best])
+      render json: {answer: answer}, status: :updated
+    else
+      render json: { errors: answer.errors }
+    end
+  end
+
   def destroy
     @answer = Answer.find(params[:id])
-    
+
     @answer.destroy
     render json: {deleted: true}
   end
@@ -37,7 +48,7 @@ before_action :authenticate, except: [:index, :show]
   private
 
   def answer_params
-   params.require(:answer).permit(:body, :question_id)
+   params.require(:answer).permit(:body, :best, :question_id)
   end
 
 
