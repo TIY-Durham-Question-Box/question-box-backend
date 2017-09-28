@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    byebug
     @user.save
     redirect_to questions_path
   end
