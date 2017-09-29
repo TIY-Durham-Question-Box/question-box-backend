@@ -28,13 +28,17 @@ before_action :authenticate, except: [:index, :show]
   end
 
   def update
-    answer = Answer.find(params[:id])
-    # answer.best = params[:best]
+    question = Question.find(params[:question_id])
 
-    if answer.update(best: params[:best])
-      render json: {answer: answer}, status: :updated
+    if question.user == current_user
+        answer = Answer.find(params[:id])
+        if answer.update(best: answer_params[:best])
+          render json: {answer: answer}, status: :ok
+        else
+          render json: { errors: answer.errors }
+        end
     else
-      render json: { errors: answer.errors }
+        render json: {errors: "Only the question submittor can mark an answer best"}, status: :forbidden
     end
   end
 
