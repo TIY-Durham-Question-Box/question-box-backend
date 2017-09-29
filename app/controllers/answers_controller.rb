@@ -2,21 +2,16 @@ class AnswersController < ApplicationController
 before_action :authenticate, except: [:index, :show]
 
   def index
-    # question_answers GET    /questions/:question_id/answers(.:format)     answers#index
     @question = Question.find(params[:question_id])
   end
 
   def show
     @question = Question.find(params[:question_id])
     @answer = Answer.find(params[:id])
-
   end
 
   def create
-    # @answer = @question.answers.build(answer_params)
-    # @answer.user = current_user
-    # if @answer.save ...
-    puts answer_params
+    # create a new answer and make the current user the "owner" of that answer
     answer = Answer.new(answer_params)
     answer.user = current_user
     answer.question_id = params[:question_id]
@@ -29,7 +24,7 @@ before_action :authenticate, except: [:index, :show]
 
   def update
     question = Question.find(params[:question_id])
-
+    # verify that the person who created the question is the one trying to mark best
     if question.user == current_user
         answer = Answer.find(params[:id])
         if answer.update(best: answer_params[:best])
@@ -44,7 +39,6 @@ before_action :authenticate, except: [:index, :show]
 
   def destroy
     @answer = Answer.find(params[:id])
-
     @answer.destroy
     render json: {deleted: true}
   end

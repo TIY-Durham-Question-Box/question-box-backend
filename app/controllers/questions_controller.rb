@@ -11,9 +11,8 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    # save the user in the question too
     @question.user = current_user
-    # byebug
-    # @user.save
     if @question.save
       render json: { message: "created" }, status: :created
     else
@@ -21,9 +20,6 @@ class QuestionsController < ApplicationController
         errors: @question.errors
       }, status: :bad_request
     end
-    # @question = Question.create(question_params)
-    # render json: { message: "created" }, status: :created
-    # render :show, status: :created
   end
 
   def destroy
