@@ -5,6 +5,6 @@ json.question do
   # json.answers @question.answers do |answer|
     json.body @answer.body
     # json.url author_url(author)
-    # json.name author.name
+    json.name @author
   # end
 end

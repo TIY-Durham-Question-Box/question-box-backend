@@ -8,6 +8,8 @@ before_action :authenticate, except: [:index, :show]
   def show
     @question = Question.find(params[:question_id])
     @answer = Answer.find(params[:id])
+    @user = User.find(@answer.user_id)
+    @author = @user.name
   end
 
   def create
