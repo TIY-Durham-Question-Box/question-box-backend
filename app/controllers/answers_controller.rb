@@ -13,7 +13,7 @@ before_action :authenticate, except: [:index, :show]
   def create
     # create a new answer and make the current user the "owner" of that answer
     answer = Answer.new(answer_params)
-    answer.user = current_user
+    answer.user = @user
     answer.question_id = params[:question_id]
     if answer.save
       render json: {answer: answer}, status: :created
